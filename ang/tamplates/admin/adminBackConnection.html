@@ -1,0 +1,15 @@
+﻿ 
+<div ng-repeat="messag in messages" class="commentsGroup">  
+ 
+	 
+	<p><span>Пользователь: {{messag.mail}} </span> </p>
+	<p> <span ng-bind-html="messag.text">  </span>  </p>
+	
+	
+	<span class="infoComments">
+		<span class="dataComment" >  {{messag.date | date:'dd-MM-yyyy hh:mm' }}   </span>  
+		<button class="savvaAdmBtn .btn-hover" ng-click="backConnection.delete({id:messag._id},getMessages)" > Удалить сообщение </button> 
+	</span>  <br>
+	<hr>	
+</div>
+<div ng-show="debug"> messages{{messages}}</div>

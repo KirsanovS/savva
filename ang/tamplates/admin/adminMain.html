@@ -1,0 +1,51 @@
+﻿ 
+<div ng-if="!autorizAdmin"> 
+	<div >
+		Введите логин и пароль для входа в панель администратора
+		<input class="savvaInput" type="text" ng-model="coreObj.mail" placeholder="Логин" ><br>
+		<input class="savvaInput" type="text" ng-model="coreObj.password" placeholder="Пароль" ><br> 
+		<div class="savvaBtn" ng-click="coreResource.query(coreObj, checkAdminAutorization )" ng-disabled="1" style="text-align:center;" >Send</div>
+	</div>
+	<div ng-show="errorAutoriz"> Неверно введен логин или пароль </div>
+	<br><br> 
+</div>
+<div class="savvaAdmBtn " style="width:250px; text-align:center;" ng-click="exitAdminAutorization()" >Выйти из панели администратора</div>
+<br/><br/>
+
+<div ng-show="coreFlag"> 
+	<input class="savvaInput" type="text" ng-model="coreObj.mail" ><br>
+	<input class="savvaInput" type="text" ng-model="coreObj.password" ><br>
+	<div class= "savvaBtn" ng-click="coreResource.get(coreObj,coreShow)" >Send</div>
+</div>
+
+
+<div ng-bind-html="tmpCore"> </div> 
+<div ng-show="debug">autorizAdmin {{autorizAdmin}} </div>
+<div ng-show="autorizAdmin">
+	 
+	<ul class="nav nav-tabs" ng-init="showAdminSection = 0">
+		<li class="active navItem" ng-click="showAdminSection = 0; setActive(showAdminSection)"><a href="">Заказы</a></li> 
+		<li class="navItem" ng-click="showAdminSection = 1; setActive(showAdminSection)"><a href="">Пользователи</a></li>  
+		<li class="navItem" ng-click="showAdminSection = 2; setActive(showAdminSection)"><a href="">Товары</a></li>  
+		<li class="navItem" ng-click="showAdminSection = 3; setActive(showAdminSection)"><a href="">Комментарии</a></li>  
+		<li class="navItem" ng-click="showAdminSection = 4; setActive(showAdminSection)"><a href="">Меню</a></li>  
+		<li class="navItem" ng-click="showAdminSection = 5; setActive(showAdminSection)"><a href="">Лукбук</a></li>  
+		<li class="navItem" ng-click="showAdminSection = 6; setActive(showAdminSection)"><a href="">Новости</a></li>    
+	</ul>  
+	<div ng-include ="returnAdminSection() ">  </div>
+	 <link rel="stylesheet" href="style/styleAdmin.css">
+	 
+	<br><br> 
+	<button class="savvaAdmBtn" ng-hide="flagShowChangeLP" ng-click="flagShowChangeLP = 1">Сменить лоигн и пароль администратора</button>
+	<div ng-show="flagShowChangeLP" >
+		Введите новый логин и пароль для смены старого
+		<input class="savvaInput" type="text" ng-model="coreObj.mail" placeholder="Логин" ><br>
+		<input class="savvaInput" type="password" ng-model="coreObj.password" placeholder="Пароль" ><br>
+		<input class="savvaInput" type="password" ng-model="coreObj.password2" placeholder="Пароль" ><br>
+		<div class="savvaAdmBtn" ng-click="coreResource.update(coreObj, adminRechangePassFn)" ng-disabled="1" style="text-align:center;" >Send</div>
+		<div ng-show="coreObj.password != coreObj.password2"> Пароли этой формы не равно друг другу</div>
+		<div ng-show="adminRechangePass" > Пароль успешно был изменен </div>
+	</div>
+	<br><br><br><br> 
+</div>
+ 

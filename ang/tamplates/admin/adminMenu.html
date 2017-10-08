@@ -1,0 +1,44 @@
+﻿ <div ng-if="autorizAdmin" > 
+<div> Добавить дополнительный рездел в меню</div>
+<input class="savvaInput" type="text" placeholder="Введите название нового раздела" ng-model="newMenu.name" ><br/>
+<input name="dzen" type="radio" value="1" ng-model="newMenu.flagSex"   >Для него <br/>
+<input name="dzen" type="radio" value="2" ng-model="newMenu.flagSex"  >Для нее<br/>
+<button class="savvaAdmBtn" ng-click="addMenu(newMenu)" >Добавить </button>
+{{newMenu}}
+</br></br>
+	 
+<!--  <div ng-repeat="menu in menuItems" id="menu"  >
+	<a  >
+		<div ng-bind="menu.name" ng-click=" changeSection(menu.flagSex,'',menu.flagNew, menu.flagDisc)"></div> 
+		<div ng-repeat="inside in menu.inside">
+			 <div ng-click=" changeSection(menu.flagSex||inside.flagSex, inside.flagSection,'',menu.flagDisc)" > 
+				 ---{{inside.name}}, 
+				 {{inside.flagSection}} 
+				 <button ng-click="delObject(inside, menu.inside)" >X</button> 
+			 </div>
+		</div>  
+	</a> 
+</div> --> 
+
+ <div ng-repeat="menu in menuItems" class="menuItem"  check-load > 
+	<div class="checkHoverAd">
+		<img src="imgs/design/menu.png" alt="">
+		<div class="topsideMenu" ng-bind="menu.name" ng-click=" changeSection(menu.flagSex,'',menu.flagNew, menu.flagDisc)" ng-class="{'lastMenu':$last}"></div>
+	</div>	
+	<div class="inpsideMenu" ng-hide="$last" >
+		<div ng-repeat="inside in menu.inside" class="insideAd" > 
+			 <div class="insideText" ng-click=" changeSection(menu.flagSex||inside.flagSex, inside.flagSection,'',menu.flagDisc)" > 
+			 &nbsp &nbsp {{inside.name}}, {{inside.flagSection}} 
+			  &nbsp <button class="savvaAdmBtn"  ng-click="delObject(inside, menu.inside)" >Удалить</button> 
+			 </div>
+		</div>  
+	</div> 
+ </div>
+ 
+<button class="savvaAdmBtn"  ng-click="menuResource.save({menu:menuItems}) ">Сохранить изменения</button>
+
+
+<br/><br/><br/><br/>
+
+</div>
+ 

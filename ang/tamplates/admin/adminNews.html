@@ -1,0 +1,56 @@
+﻿ <div ng-show="debug" > newsList {{newsList}} </div>
+<div ng-if="autorizAdmin" >  
+ 
+		
+
+
+		
+ 
+		 <input type="file" file-model="newNews.newImgs" class="btn btn-default" multiple /> 
+	  <input class="savvaInput" type="text" ng-model="newNews.name" placeholder="Название" ><br>
+	  
+			  <text-angular   ng-model="newNews.text" >   </text-angular>   
+			  
+	<span ng-repeat="img in newNews.newImgs">
+		<img ng-src="{{img.url}}" alt="" style="width:30%"> 
+		<button ng-click="delObject(img,newNews.newImgs)" class="savvaAdmBtn" >удалить</button> 
+	</span>
+	<h2 style="display:inline-block" >Пометить новость как Акцию:</h2> <input type="checkbox" ng-model="newNews.flagShare" ng-true-value="true" ng-false-value="false" >
+	
+	<div> SEO: </div>
+	<input class="savvaInput" type="text" ng-model="newNews.title" placeholder="Title"><br>
+	<input class="savvaInput" type="text" ng-model="newNews.keywords" placeholder="Ключевые слова страныци"><br>
+	<input class="savvaInput" type="text" ng-model="newNews.description" placeholder="Описание страницы"><br>
+	 
+	<button  ng-click=" newsResource.save(getData(newNews),getNews)" class="savvaAdmBtn" >Сохранить</button>
+	  <div ng-show="debug">{{newNews}}</div>
+ 
+ 
+ 
+ 
+	<div ng-repeat="news in newsList" style="text-align:center; ">
+		   
+		<img ng-src="imgs/news/{{news.img[0]}}" alt="{{news.alt}}"> <br>
+		Название <span>{{news.name}} </span><br>
+		Содержимое новости <span>{{news.text}} </span><br>
+		description <span>{{news.description}} </span><br>
+		keywords <span>{{news.keywords}} </span><br>
+		title <span>{{news.title}} </span><br>
+		 
+		Альт тег картинки: &nbsp <input class="savvaInput" type="text" ng-model="news.alt" style="width:300px;" > 
+		<button  ng-click=" saveAlt(news)" class="savvaAdmBtn"   >
+			Сохранить Альт-тег
+		</button> 
+			<br>
+		<button ng-click="newsResource.delete({id:news._id },getNews)" class="savvaAdmBtn"  >Удалить новость</button>
+		<button ng-click="editNews(news);   " class="savvaAdmBtn"  >Редактировать новость</button>
+		<h1 ng-show="news.flagShare" > Акционная новость </h1>
+		<hr>
+	</div>
+		
+		
+		
+		
+
+ </div>
+ <div ng-show="debug" > newNews{{newNews}} </div>

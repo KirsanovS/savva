@@ -1,0 +1,53 @@
+﻿  
+<div ng-if="autorizAdmin" class="row" ng-repeat="order in orders | orderBy:'date'   " >
+	<div class="col-xs-12" style="padding:0 50px;" >
+	<div class="row">	<div ng-show="debug">order  {{order }}</div>
+		<div>Данные пользователя</div>
+		<div>Имя: {{order.name}}</div>
+		<div>Фамилия: {{order.surname}}</div>
+		<div> Пол: {{order.sex | showSex}}</div>
+		<div>День рождения: {{order.birth | date:'dd,mm,yyyy'}}</div>
+		<div>E-mail: {{order.mail}}</div>
+
+		<div>Адрес: {{order.address.country}} ,г. {{order.address.city}}, {{order.address.region}} область, {{order.address.area}} район, ул {{order.address.street}}, д {{order.address.house}}, кв {{order.address.flat}}</div>
+		<br/><br/> 
+		<div   >Дата заказа: {{  order.date  | date:'dd-MM-yyyy hh:mm'}}</div> 
+		<br/> 
+	</div>
+	
+	 
+	<div> Заказанные товары:</div>
+	 <div  class="row" ng-repeat="item in order.newPurchase " >
+		<div ng-show="item" class="col-xs-3">
+			<slick class="slider  " settings="slickConfigX" ng-if="slickConfigXLoaded" dots="true" >
+				<div ng-repeat="img in item.imgs">
+					<img ng-src="{{'imgs/items/'+img.img}}" alt="{{img.alt}}"> 
+				</div>
+			</slick>
+		</div>	
+		 
+		<div class="col-xs-9" style=" text-align:right" >
+			<!-- <img ng-repeat="img in purchase.item.imgs " ng-src="{{'imgs/items/'+img}}" alt=""> -->
+			<a ng-href="#!/oneItemPage/{{item.id}}" >  
+				<div>{{ item.name }}</div>
+			</a>  
+			<div>{{ item.mony }}</div> 
+			<div>{{ item.selectSize }}</div>
+			<br><br><br><br>
+			<div>
+				Удалить проданный товар с последующим зачислением баллов покупателю &nbsp &nbsp &nbsp
+				<button class="savvaAdmBtn delBtn" ng-show="order.userId" ng-click="deleteOrder(order.userId,order._id,item);">X</button>
+			</div> 
+		</div>
+	 </div>
+	
+	<div class="row">
+	 <button class="savvaAdmBtn"  style="width:100%;" ng-click="orderResource.delete({orderId:order._id}, getOrders)">Удалить заказ вместе со всеми, включенными в него, товарами</button>	 
+	</div>
+		<hr/>
+	</div>
+	
+</div>
+
+
+ 

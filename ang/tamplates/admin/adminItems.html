@@ -1,0 +1,102 @@
+﻿ <div ng-if="autorizAdmin" > 
+<form>
+	<span ng-repeat="img in newItem.imgs" style="position:relative">
+		<img ng-src="{{'imgs/items/'+img.img}}" style="max-width:30%;"><br> 
+		<button class="savvaAdmBtn" ng-click="delObject(img, newItem.imgs)" >удалить</button>
+	</span> </br> 
+	Новые изображения <br><hr>
+	<span ng-repeat="img in newItem.newImgs" style="position:relative">
+		<img ng-src="{{img.url}}" alt="" style="max-width:30%;">
+		<button class="savvaAdmBtn" ng-click="delObject(img,newItem.newImgs)" >удалить</button>
+	</span> </br> 
+	<input class="savvaInput" type="text" ng-model="newItem.name"  placeholder="Название"> </br>
+	<input class="savvaInput" type="number" ng-model="newItem.mony" placeholder="Стоимость" >  </br>
+	<input class="savvaInput" type="text" ng-model="newItem.describe" placeholder="Описание"> </br>
+		
+	<p><b>Пол</b></p>
+	<input name="dzen" type="radio" value="1" ng-model="newItem.flagSex" ng-click=" selectPartSections(newItem.flagSex)" >Мужской 
+	<input name="dzen" type="radio" value="2" ng-model="newItem.flagSex" ng-click=" selectPartSections(newItem.flagSex)" checked>Женский 
+		</br>
+	<select style="color:#111; background: #aaa;"  ng-model="newItem.flagSection" >
+	  <option style="color:#111; background: #aaa;" ng-repeat="section in sections" value="{{section.id*1}}" >{{section.name}}</option> 
+	</select>
+		</br>
+	<input type="checkbox" ng-model="newItem.flagNew" ng-true-value="1" ng-false-value="0">	 Пометить товар как новинка 
+	<input type="checkbox" ng-model="newItem.flagDisc" ng-true-value="1" ng-false-value="0" > Пометить товар как скидочный 
+		<br/>
+	<div ng-hide="1" ng-init="newItem.flagSize={'0':{'name':'XS','is':false},'1':{'name':'S','is':false},'2':{'name':'M','is':false},'3':{'name':'L','is':false},'4':{'name':'XL','is':false}}"> </div>
+	<input type="checkbox" ng-model="newItem.flagSize[0].is" ng-true-value="true" ng-false-value="false" >XS
+	<input type="checkbox" ng-model="newItem.flagSize[1].is" ng-true-value="true" ng-false-value="false" >S
+	<input type="checkbox" ng-model="newItem.flagSize[2].is" ng-true-value="true" ng-false-value="false" >X
+	<input type="checkbox" ng-model="newItem.flagSize[3].is" ng-true-value="true" ng-false-value="false" >M
+	<input type="checkbox" ng-model="newItem.flagSize[4].is" ng-true-value="true" ng-false-value="false" >L 
+		<br/>Мета-тег "Title" для seo-оптимизации страницы с товаром <br>
+	<textarea class="savvaInput " name="" id="" cols="60" rows="5" ng-model="newItem.title"> </textarea></br> 
+		<br/>
+	<textarea class="savvaInput " name="" id="" cols="60" rows="5" ng-model="newItem.description"> </textarea></br> 
+		<br/>
+	<textarea class="savvaInput " name="" id="" cols="60" rows="5" ng-model="newItem.keywords"> </textarea></br> 
+		<br/>
+	<input class="savvaInput" type="file" file-model="newItem.newImgs" multiple /> 
+		</br>
+	<button  ng-click="itemsResource.save( getData(newItem),getItems)" class="savvaAdmBtn" >Добавить товар</button>
+	<button  ng-show="newItem._id" ng-click="itemsResource.update( getData(newItem),getItems)" class="savvaAdmBtn">Сохранить изменения товара {{newItem.name}}</button>
+	 
+	{{newItem}} ,{{newItem.id}}
+</form>
+
+
+
+
+
+
+</br></br>	 
+Поиск товара <input class="savvaInput" style="width:300px;" ng-model="search" type="text" /></br> 
+<div  class="row" style="padding:50px;" ng-repeat="item in items | filter:search" >
+	<div class="col-xs-12"> 
+		<div class="row">		
+			<div ><span class="admItemsInfo"> Наименование: </span> {{item.name }}</div>
+			<div><span class="admItemsInfo"> Стоимость: </span> {{item.mony+'$'}}</div>   
+			<div><span class="admItemsInfo"> Материал: </span> {{item.material}}</div>   
+			<div><span class="admItemsInfo"> Цвет: </span> {{item.color}}</div>   
+			<span class="admItemsInfo"> Доступные размеры </span> 
+			<span ng-repeat="size in  item.flagSize  " style="cursor: default;">  
+				 <span ng-bind="size.name" ng-class="{ sizeTrue: size.is,  sizeFalse: !size.is}"></span>
+			</span>
+		
+			 <br/>
+			   Товар является новинкой 
+			 <br/>
+			 {{item.sex==1?'Мужская вещь':'Жеская вещь' }}   
+			 <br/>
+			<div><span class="admItemsInfo">Раздел товара: </span>{{getNameFlagSections(item.flagSection,  allSections)}}</div> 
+			<div><span class="admItemsInfo">Описание товара: </span>{{item.describe}}</div> 
+			
+		</div>	
+		<div class="row">
+			<div ng-repeat="img in item.imgs" style="width:20%; display:inline-block; position:relative; padding:10px;" > 
+				<img style="width:100%" ng-src="{{'imgs/items/'+img.img}}" alt="" />   <br>
+				 <input  class="savvaInput" style="width:100%" type="text" ng-model="img.alt"   > <br>
+				<button style="width:100%" class="savvaAdmBtn" ng-click="itemsResource.saveAlt({itemId:item._id, imgs:img})" >Сохранить Альт-тег</button>
+			 </div>
+		</div> 
+		<div class="row">
+			<button class="savvaInput" ng-click="copyItem(item); selectPartSections(item.flagSex)" >Изменить</button> 
+			<button class="savvaInput"  ng-click="itemsResource.delete({id:item._id },getItems)" >Удалить</button> 
+		</div> 
+	</div>	
+</div>
+ 
+ 
+ </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 

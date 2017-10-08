@@ -1,0 +1,87 @@
+﻿<div>Текущий заказ
+	 <div>Данные пользователя</div>
+	<div>Имя: {{order.name}}</div>
+	<div>Фамилия: {{order.surname}}</div>
+	<div> Пол: {{order.sex | showSex}}</div>
+	<div>День рождения: {{order.birth | date:'dd,mm,yyyy'}}</div>
+	<div>E-mail: {{order.mail}}</div>
+
+	<div>Адрес: {{order.address.country}} ,г. {{order.address.city}}, {{order.address.region}} область, {{order.address.area}} район, ул {{order.address.street}}, д {{order.address.house}}, кв {{order.address.flat}}</div>
+	<br/><br/> 
+	<div   >Дата заказа: {{  order.date  | date:'dd-MM-yyyy hh:mm'}}</div> 
+	<br/> 
+	<div> Заказанные товары</div>
+	 <div ng-repeat="item in order.newPurchase " > 
+			<!-- <img ng-repeat="img in purchase.item.imgs " ng-src="{{'imgs/items/'+img}}" alt=""> -->
+		<a ng-href="#!/oneItemPage/{{item.id}}" >
+			<div>{{ item.name }}</div>
+		</a> 
+			<div>{{ item.mony }}</div> 
+			<div>{{ item.selectSize }}</div>
+			 
+			<span ng-repeat="img in item.imgs">
+				<img ng-src="{{'imgs/items/'+img}}" alt="">
+			</span>  
+			 
+	 </div>  
+</div>
+
+
+
+
+
+<form role="form"  >
+	<div class="form-group" ><input class="form-control" type="namber" placeholder="Телефон" ng-model="order.phone"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Имя" ng-model="order.name"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Фамилия" ng-model="order.surname"></div>
+	<label for="">Персональная скидка в день рождения при налиии паспорта</label>
+	<div class="form-group" ><input class="form-control" type="date" ></div>
+	<div class="form-group" ><input class="form-control" type="mail" placeholder="E-mail" ng-model="order.mail"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Страна" ng-model="order.country"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Город" ng-model="order.city"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Область" ng-model="order.region"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Район" ng-model="order.area"></div>
+	<div class="form-group" ><input class="form-control" type="text" placeholder="Улица" ng-model="order.street"></div>
+	
+	<div class="form-group" ><input class="form-control" type="namber" placeholder="Номер дома" ng-model="order.house"></div>
+	<div class="form-group" ><input class="form-control" type="namber" placeholder="Квартира" ng-model="order.flat"></div>
+	
+	<label  class="control-label">способы оплаты</label>
+	<select class="form-control" ng-model="order.methodPay" > 
+		<option value="0">Наличными</option>
+		<option value="1">Карточкой</option>
+	</select>
+	
+	<label for="">способы доставки</label>
+	<select class="form-control" ng-model="order.methodDelivery" >  
+		<option value="0">Курьером</option>
+		<option value="1">Почтой</option>
+	</select>
+	
+	 
+</form>
+ 
+<br><br>
+<div class="basket" ng-repeat="bask in basket"   >
+	 
+		<span ng-repeat="img in bask.imgs">
+			<img ng-src="{{'imgs/items/'+img}}" alt="">
+		</span> 
+		 
+		<a ng-href="#!/oneItemPage/{{item.id}}" > 
+			<div ng-bind="bask.name"></div>
+		</a>
+		<div>{{bask.mony+'$'}}</div>
+		<div  ng-show="debug">flagSection: {{bask.flagSection}}, flagSex: 	{{bask.flagSex}},flagNew: {{bask.flagNew}} , flagDisc:{{bask.flagDisc}}</div> 
+	 
+	<span id="bask.id" ng-repeat="size in bask.flagSize | toSize " >  
+			 <span ng-bind="size.name" ng-click="selectSizeBask(size,bask)"   ng-class="{ sizeTrue: size.is,  sizeFalse: !size.is, selectColor: size.select}"></span>
+	</span>
+	<div>Выбран размер: {{bask.selectSize}}</div>
+</div>
+<div >Заказ на сумму: {{basketSumm}}</div>
+<br><br>
+<a ng-href="#!/endOrder"><button ng-click="order.items = basket; sendOrder(order)" >Оформить заказ</button></a>
+
+{{order}}
+<br><br>

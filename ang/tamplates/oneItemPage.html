@@ -1,0 +1,102 @@
+﻿ 
+
+
+ <div ng-show="debug" >oneItem:{{oneItem}}</div>
+<div class="row">
+ <div class=" hidden-xs col-sm-2"  > 
+		 <div class="row">
+		 <div ng-include="'tamplates/menu.html'"> </div> 
+		 </div>
+	 </div>
+	<div class="col-xs-12 col-sm-5" >
+		<div class="bigSlide" ng-if="oneItem.imgs" >   
+		
+			 
+			<slick class="slider"  settings="slickConfigX" ng-if="slickConfigXLoaded" dots="true" >	
+				<div ng-repeat="img in oneItem.imgs "   >  
+					<img ng-src="{{'imgs/items/'+img.img}}" alt="{{img.alt}}"> 
+				</div>
+			</slick>
+			<div id="onePageIcons" >
+			<div class="pluso" data-background="transparent" data-options="big,square,line,horizontal,nocounter,theme=02" data-services="vkontakte,odnoklassniki,facebook,twitter,google,pinterest"   ></div>
+			</div>
+		</div> 
+	</div>
+	
+	<div class="col-xs-12 col-sm-5"  class="contItemInfo" >
+		<h2 ng-bind="oneItem.name"></h2> 
+		 <h4>{{oneItem.mony+'$'}}</h4> 
+		<h4>Материал: {{oneItem.material}}</h4>
+		<h4>Цвет: {{oneItem.color}}</h4>
+		
+		<h4>
+		Доступные размеры    
+		<span ng-repeat="size in  oneItem.flagSize  " style="cursor: default;">  
+			 <span ng-bind="size.name" ng-class="{ sizeTrue: size.is,  sizeFalse: !size.is}"></span>
+		</span>
+		</h4>
+		
+		<div ng-bind-html="oneItem.describe"> </div>
+		<div ng-show="debug">flagSection: {{oneItem.flagSection}}, flagSex: 	{{oneItem.flagSex}},flagNew: {{oneItem.flagNew}} , flagDisc:{{oneItem.flagDisc}}</div> 
+		  
+		<br/> 
+		<div ng-hide="1" >{{btnText = existObject(oneItem, basket)? btnText = 'Товар добавлен в корзину': btnText = 'Добавить товар в корзину'}}</div>
+		<button class="savvaBtn" ng-click="basketFn(oneItem); " ng-disabled="oneItem.basketFlag" >{{btnText}}  </button>
+	</div>
+</div>
+ 
+<script type="text/javascript">(function() {
+  if (window.pluso)if (typeof window.pluso.start == "function") return;
+  if (window.ifpluso==undefined) { window.ifpluso = 1;
+    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+    s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+    s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+    var h=d[g]('body')[0];
+    h.appendChild(s); 
+  }})();</script>
+ 
+ 
+<div class="row">
+	<div class="col-xs-0 col-sm-2"  ></div>
+	<div class="col-xs-12 col-sm-10"  >
+		<div ng-repeat="comment in oneItem.comments" class="commentsGroup" ng-if="comment">   
+	   
+			<span ng-hide="1"> {{comment.userName = getUserById(comment.userId).name }} </span><br/>
+			
+			<!-- <div >Пользователь: <span style="font-size:19px;">   {{comment.userName}} </span></div> -->
+			<h3 >Пользователь: {{comment.userName}} </h3>
+			<div ng-bind-html="comment.text"> </div> 
+			<br/>
+			<div class="dataComment"  >{{ comment.date | date:'dd-MM-yyyy hh:mm' }}  </div> 
+			<button ng-if="userExist._id == comment.userId" class="savvaBtn savvaBtnComm"   ng-click="itemsResource.deleteComm({itemId:oneItem._id, date:comment.date},getOneItem )">Удалить</button>
+			 
+		 <hr/>
+		</div> 
+		<div ng-show="userExist" id="text-angularOnePage">
+			<text-angular   ng-model="newComment.text" >   </text-angular>    
+		 
+			<button class="savvaBtn savvaBtnComm" ng-click="itemsResource.saveComm({'itemId':oneItem._id,saveObject:{'userId':userExist._id,'date':DateNow,'text':newComment.text}},getOneItem);" >
+				Отправить комментарий
+			</button> 
+		</div>
+	
+	</div>
+</div> 
+ 
+
+<div class="row " style="text-align:center;" > 
+
+	<div id="equalItems"  ng-repeat="item in items | filter:{flagSection:oneItem.flagSection} | limitTo:3 " ng-if="item.imgs" >  
+		<a ng-href="#!/oneItemPage/{{trans(item.name)}}/{{item._id}}" >
+			<img ng-src="{{'imgs/items/'+item.imgs[0].img }}" alt="{{item.imgs[0].alt}}" width="100%">
+			<h3 ng-bind-html="item.name"> </h3>  
+		</a> 
+	</div> 
+	
+</div>
+ 
+ 
+
+ 
+
+ 

@@ -1,0 +1,25 @@
+﻿ 
+ 
+ <div  ng-if="autorizAdmin" ng-repeat=" item in items | orderBy:'-lastComment' " class="commentsGroup"> 
+	 <div ng-show="debug">comment {{comment}}	<br> item {{item}} </div>
+	 
+	 <div ng-repeat="comment in item.comments" class="commentsGroup">  
+			<span ng-hide="1"> {{comment.userName = getUserById(comment.userId).name }} </span><br/>
+			 
+			<span>Пользователь: {{comment.userName}} </span><br/>
+			<span ng-bind-html="comment.text">  </span><br/>
+			
+			<span class="infoComments">
+				<span class="dataComment" >  {{comment.date | date:'dd-MM-yyyy hh:mm' }}   </span> 
+				<a  class="dataComment" ng-href="#!/oneItemPage/{{item._id}}"><span>Перейти к товару</span></a> 
+				<button class="savvaAdmBtn .btn-hover" ng-click="commentsResource.delete({id:comment.id, itemId:comment.itemId})" > Удалить комментарий </button>
+				 
+			</span>  
+			  
+	</div>
+	<br/> 
+		<hr/> 
+</div> 
+ 
+		
+		

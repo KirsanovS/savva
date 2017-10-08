@@ -1,0 +1,42 @@
+﻿<div class="row">
+	<div class="col-xs-3"  > <div ng-include="'tamplates/menu.html'"> </div> </div>
+	<div class="col-xs-6"  > 
+	<br><br>
+<form name="registrationForm" ng-hide="autorizationFlag">
+	 <input class="  savvaInput" type="email" placeholder="E-mail" ng-model="regPR.mail" required>  
+	 <input class=" savvaInput" type="password" placeholder="Пароль" ng-model="regPR.password" required> 
+	 <input class=" savvaInput" type="text" placeholder="Имя" ng-model="regPR.name" required> 
+	 <input class=" savvaInput" type="text" placeholder="Фамилия" ng-model="regPR.surname" required> 
+	 <input class=" savvaInput" type="phone" placeholder="+37529 1234567" ng-model="regPR.phone" required>
+	 
+	<div class="form-group" class="radio" style="text-align:center;" required>
+		 <input   name="sex" type="radio"  value="1" ng-model="regPR.sex" required>Мужской  &nbsp &nbsp
+		 <input   name="sex" type="radio"  value="2"  ng-model="regPR.sex" required>Женский
+	</div> 
+	
+	<button class="savvaBtn" ng-click="regPR.purchase=[]; registration(regPR)" ng-hide="registrationForm.$invalid" 
+	ng-disabled="registrationForm.$invalid" >Сохранить</button> 
+	<button class="savvaBtn" ng-show="registrationForm.$invalid">Сохранить</button> 
+	
+	<div ng-show="debug">{{equalUserExist.result}}</div>
+	<div ng-show="equalUserExist.result" >  Пользователь с таким E-mail адресом уже зарегистрирован </div>
+</form> 
+
+
+
+
+
+
+<div ng-show="autorizationFlag" style="text-align:center;">
+	Поздравляем <br/>
+	Ваш личный кабинет успешно был создан.
+	Вы можете воспользоваться дополнительными возможностями:
+	изменение контактной информации, адрессов доставки, просмотр истории заказов и многое другое,
+	 <br/><br/>
+	<a ng-href="#!/products"><button class="savvaBtn" >Вернуться к покупкам</button> </a>
+</div>
+	 
+ 
+</div>
+
+<div class="col-xs-3"  > </div>

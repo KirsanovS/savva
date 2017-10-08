@@ -1,0 +1,19 @@
+﻿<div ng-if="autorizAdmin" > 
+	 <div ng-repeat="item in lookbook " > 
+		<img ng-src=" {{'imgs/lookbook/'+item.img}}" alt="" style="width:100%"><br>
+		 Альт-тег: <input class="savvaInput" type="text" ng-model="item.alt"><br>
+		<button  ng-click="lookbookResource.saveAlt(item)" class="savvaAdmBtn" >
+			Сохранить Альт-тег
+		</button>
+		<button ng-click="lookbookResource.delete({id:item._id},getLookbook)" class="savvaAdmBtn"  >Удалить</button>
+		item{{item}}
+		<hr>
+	 </div> 
+	<span ng-repeat="img in newItemsLook.newImgs">
+		<img ng-src="{{img.url}}" alt="" style="width:30%"> 
+		<button ng-click="delObject(img,newItemsLook.newImgs)" class="savvaAdmBtn" >удалить</button>
+	</span>
+	<input type="file" file-model="newItemsLook.newImgs" class="btn btn-default" multiple /> 
+	<button  ng-click=" lookbookResource.save(getData(newItemsLook),getLookbook)" class="savvaAdmBtn" >Сохранить</button>
+ 
+ </div>

@@ -1,0 +1,105 @@
+ 
+<div class="row">
+	 <div class="hidden-xs col-sm-3"  > 
+		 <div class="row">
+		 <div ng-include="'tamplates/menu.html'"> </div> 
+		 </div>
+	 </div>
+	<div class="col-sm-6"  > <br/><br/>
+	
+<div ng-show="userExist||freeOrder"> 
+	<form role="form" name="basketForn" >  
+		 
+			<input class=" savvaInput" type="number" placeholder="+37529 1234567" ng-model="freeOrder.phone" required>
+		  
+		 <input class="  savvaInput" type="text" placeholder="Имя" ng-model="freeOrder.name" required>
+		 <input class="  savvaInput" type="text" placeholder="Фамилия" ng-model="freeOrder.surname" required>
+		 Персональная скидка в день рождения при налиии паспорта<br>
+		 <input class="  savvaInput" type="date" ></div>
+		 <input class="  savvaInput" type="mail" placeholder="E-mail" ng-model="freeOrder.mail" required/>
+		 <input class="  savvaInput" type="text" placeholder="Страна" ng-model="freeOrder.address.country"required />
+		 <input class="  savvaInput" type="text" placeholder="Город" ng-model="freeOrder.address.city" required /> 
+		 <input class="  savvaInput" type="text" placeholder="Область" ng-model="freeOrder.address.region"required />
+		<input class="  savvaInput" type="text" placeholder="Район" ng-model="freeOrder.address.area" required /> 
+		 <input class="  savvaInput" type="text" placeholder="Улица" ng-model="freeOrder.address.street"required /> 
+		
+		<div class="form-group" ><input class="  savvaInput" type="namber" placeholder="Номер дома" ng-model="freeOrder.address.house" required /></div>
+		<div class="form-group" ><input class="  savvaInput" type="namber" placeholder="Квартира" ng-model="freeOrder.address.flat"required /></div>
+		
+		<label  class="control-label">способы оплаты</label>
+		<select class="  savvaInput" ng-model="freeOrder.methodPay" > 
+			<option value="0">Наличными</option>
+			<option value="1">Карточкой</option>
+		</select>
+		
+		<label for="">способы доставки</label>
+		<select class="  savvaInput" ng-model="freeOrder.methodDelivery" >  
+			<option value="0">Курьером</option>
+			<option value="1">Почтой</option>
+		</select>
+		
+		 
+	  
+
+<div class="row" ng-repeat="bask in basket" style="text-align:right;"> <br><br> 
+	<div class="col-xs-5"  >
+		<slick class="slider  " settings="slickConfigX" ng-if="slickConfigXLoaded" dots="true" >
+			<div ng-repeat="img in bask.imgs">
+				<img ng-src="{{'imgs/items/'+img.img}}" alt="{{img.alt}}"> 
+			</div>
+		</slick>
+	</div>
+	<a ng-href="#!/oneItemPage/{{trans(bask.name)}}/{{bask._id}}">
+		<div ng-bind="bask.name"></div>
+	</a>
+	<div>{{bask.mony+'$'}}</div> <br/><br/>
+	<span id="bask.id" ng-repeat="size in bask.flagSize   " >   
+		 <span ng-bind="size.name" ng-click="selectSizeBask(size,bask)"   ng-class="{ sizeTrue: size.is,  sizeFalse: !size.is, selectColor: size.select}"></span> 
+	</span>
+	 <div>{{!bask.selectSize? 'Размер не выбран': 'Выбран размер: '+bask.selectSize }}</div> 
+	 <div class="savvaBtn delBtn"  ng-click="delObject(bask, basket)">X</div>
+	  
+</div> 
+				
+	<div class="row">
+	<div class="col-xs-12"  >			
+		<div ng-show="userExist||freeOrder"> 
+			<div >Заказ на сумму: {{basketSumm}}</div>
+			 <div>Ваша скидка {{sail }} %</div>
+			 <div>Цена с учётом вашей скидки {{ basketSumm - (basketSumm/100)*sail }}</div>
+			<br><br>
+			 
+			<div ng-hide="1">{{freeOrder.newPurchase = basket; freeOrder.userId = userExist._id; freeOrder.date = DateNow}}</div>
+			 <div ng-show="selectSizeInfo" >{{selectSizeInfo}}</div>
+			<button ng-if="!order&&!basketForn.$invalid" class="savvaBtn" ng-click="saveOrder(freeOrder)  "  ng-disabled="basketForn.$invalid" > Оформить заказ</button> 
+			<div ng-show="debug"> {{freeOrder}}	</div>
+			<button ng-if="order&&!basketForn.$invalid" class="savvaBtn" ng-click=" updateOrder(freeOrder )  " ng-disabled="basketForn.$invalid" >
+				Обновить текущий заказ
+			</button> 
+			<button ng-show="basketForn.$invalid" class="savvaBtn">Не все поля формы заполнены, либо одно из полей заполнено неверно </button>  
+		</div>
+
+		
+</form>
+</div> 		 
+
+		<div ng-show=" !(userExist||freeOrder)"> 
+			<!-- Оформить через личный кабинет -->
+			<form action="">
+				<div class="form-group" ><input class="savvaInput " type="text" placeholder="E-mail" ng-model="autorizObj.mail"></div>
+				<div class="form-group" ><input class=" savvaInput" type="text" placeholder="Пароль" ng-model="autorizObj.password"></div>
+				<div class="form-group" ><button class="savvaBtn" ng-click="autoriz(autorizObj)" >Войти</button></div>
+			</form>
+			<br><br>
+			
+			<div class="row">
+			 <div class="col-xs-6"  > <a ng-href="#!/registrationPrivatRoom"><button class="savvaBtn">Быстрая регистрация</button></a> </div>
+			 <div class="col-xs-6"  > <button class="savvaBtn"  ng-click="createOrderObj()"  >Оформить без регистрации</button> </div>
+			</div>  
+		</div> 
+	</div> 
+	</div> 
+</div> 
+ 
+ 
+</div> 

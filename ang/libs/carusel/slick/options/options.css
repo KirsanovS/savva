@@ -1,0 +1,35 @@
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .slider {
+        width: 100%;
+        margin:  0px auto;
+    }
+
+    .slick-slide {
+      margin: 0px 0px; 
+    }
+
+    .slick-slide img {
+      width: 100%; 
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
+	
+	
+	.bigSlide .slick-slide img {
+		margin-left:100%;
+    }
+	.slider .slick-slide img {
+		margin-left:100%;
+    }
+	 

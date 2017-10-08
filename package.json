@@ -1,0 +1,25 @@
+{
+  "name": "d",
+  "version": "1.0.0",
+  "description": "d",
+  "main": "d",
+  "dependencies": {
+    "express": "^4.15.2",
+    "formidable": "^1.1.1",
+    "jsdom": "^9.12.0",
+    "mongodb": "^2.2.31",
+    "nodemailer": "^4.0.1",
+    "request": "^2.81.0", 
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "d",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "d"
+  },
+  "author": "d",
+  "license": "ISC"
+}

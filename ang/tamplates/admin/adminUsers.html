@@ -1,0 +1,37 @@
+﻿<br/><br/><br/>  
+<div class="tableUsers"  ng-if="autorizAdmin"> 
+
+<div ng-if="1">
+	<textarea class="savvaInput"  name="" id="" cols="90" rows="2" ng-model="mess"></textarea>
+	<button  ng-click="sendMail(users,mess)" class="savvaAdmBtn">Разослать сообщение всем пользователям</button>
+</div><br><br>
+<table  class="table"   >	
+	<thead >
+		<tr>
+			<td ng-click="userFilter('name')" class="tableTD" >Имя</td>
+			<td ng-click="userFilter('surname')" class="tableTD">Фамилия</td>
+			<td ng-click="userFilter('sex')" class="tableTD">Пол</td>
+			<td ng-click="userFilter('birth')" class="tableTD">День рождения</td>
+			<td ng-click="userFilter('birth')" class="tableTD">Возраст</td>
+			<td ng-click="userFilter('mail')" class="tableTD">E-mail</td>
+		</tr> 
+	</thead >
+	<tbody ng-repeat="user in users | orderBy:fieldName   "  > <div ng-show="debug">fieldName:{{fieldName}}</div>
+		<tr    >
+			<td ng-bind="user.name" ></td>
+			<td ng-bind="user.surname"></td>
+			<td ng-bind="user.sex | showSex"></td>
+			<td ng-bind="user.birth | date:'dd,mm,yyyy' "   ></td>
+			<td ng-bind="user.birth | howOld " ></td>
+			<td ng-bind="user.mail"></td> 
+			<td ng-click="usersResource.delete({id:user._id},getUsers)" ><button class="savvaAdmBtn">Удалить пользователя</button></td>
+			<td ng-click="flagShowMess = 1" ><button class="savvaAdmBtn">Написать сообщение</button></td>
+		</tr>
+		<tr ng-show="flagShowMess"> 
+			<td colspan="7" ><textarea class="savvaInput"  name="" id="" cols="90" rows="2"  ng-model="mess"></textarea></td>
+			<td ng-click="sendMail(user.mail, mess)" ><button class="savvaAdmBtn">Отправить сообщение</button></td> 
+		</tr>
+	</tbody >
+</table>
+</div> 
+ 

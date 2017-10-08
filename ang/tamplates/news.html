@@ -1,0 +1,17 @@
+﻿<div ng-show="debug">  news {{news}} </div> 
+ <div class="row">
+	<div class="hidden-xs col-sm-2 "  >
+		<div ng-include="'tamplates/menu.html'"> </div>
+	</div>
+	<div class="col-xs-12 col-sm-9" > 
+		<div  style="text-align:center; ">
+			<div ng-bind="news.name"></div><br/>
+			<img ng-src="imgs/news/{{news.img[0]}}" alt="{{news.alt}}"><br/>
+			<div ng-bind-html="news.text"></div>
+			<br/><br/><br/>
+			 
+		</div>
+	</div>
+</div>
+	 
+<br><br>

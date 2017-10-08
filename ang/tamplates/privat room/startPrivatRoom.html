@@ -1,0 +1,180 @@
+﻿ 
+ 
+<div class="row">
+	<div class="hidden-xs col-sm-3"  > <div ng-include="'tamplates/menu.html'"> </div> </div>
+	<div class="col-xs-12 col-sm-6"  > 
+	
+ 
+ 
+
+<div ng-show='!userExist'> 
+	<div class="blackBlock">Новый клиент</div >
+		<div class="textContPR">
+			Создание личного кабинета поможет совершать покупки быстрее. Вы сможете контролировать состояние заказа, а также просматривать историю покупок. Вы сможете получать скидочные купоны, копить бонусные баллы и получать персональную скидку 
+		</div > 
+	 
+	<a ng-href="#!/registrationPrivatRoom"><button class="savvaBtn"> Зарегистрироваться </button></a> 	<br><br><br>
+	
+	<div class="blackBlock">Личный кабинет</div> 
+	<form name="autorizForm" ><br>
+		 
+		 <input class="savvaInput" name="email"  type="email" placeholder="E-mail" ng-model="autorizObj.mail" required>
+		 	<div ng-show="showFormError(autorizForm.email, 'required')"> Поле не заполнено  </div>
+		 	<div ng-show="showFormError(autorizForm.email, 'email')" > Поле заполнено не верно </div>
+		<input class="savvaInput" type="text" placeholder="Пароль" ng-model="autorizObj.password"  required>
+		 <button ng-hide="autorizForm.$invalid" class="savvaBtn"  ng-click="autoriz(autorizObj)" ng-disabled="autorizForm.$invalid">Войти</button>   
+		 <button ng-show="autorizForm.$invalid" class="savvaBtn"  >Войти</button>   
+		 <div ng-show="errorAutoriz" >Не верно введен логин или пароль</div>
+	</form> 
+</div>
+
+<!-- order.newPurchase - {{order.newPurchase}} -->
+	<br><br>
+<div ng-show="order&&order.newPurchase&&order.newPurchase.length  " ><br>
+	<div class="blackBlock">Текущий заказ</div ><br/>
+	
+	 <div>Данные пользователя</div>
+	<div>Имя: {{order.name}}</div>
+	<div>Фамилия: {{order.surname}}</div>
+	<div> Пол: {{order.sex | showSex}}</div>
+	<div>День рождения: {{order.birth | date:'dd,mm,yyyy'}}</div>
+	<div>E-mail: {{order.mail}}</div>
+
+	<div>Адрес: {{order.address.country}} ,г. {{order.address.city}}, {{order.address.region}} область, {{order.address.area}} район, ул {{order.address.street}}, д {{order.address.house}}, кв {{order.address.flat}}</div>
+	<br/><br/> 
+	<div   >Дата заказа: {{  order.date  | date:'dd-MM-yyyy hh:mm'}}</div> 
+	<br/> 
+	<div> Заказанные товары</div>
+	 <div ng-repeat="item in order.newPurchase " >  
+			
+			<div class="row">
+				<br><br>
+				<div class="col-xs-5"  >
+					<slick class="slider  " settings="slickConfigX" ng-if="slickConfigXLoaded" dots="true" >
+						<div ng-repeat="img in item.imgs">
+							<img ng-src="{{'imgs/items/'+img.img}}" alt="{{img.alt}}"> 
+						</div>
+					</slick>
+				</div>
+				<div class="col-xs-7  " style="text-align:right;" >
+					<div ng-bind=" item.name"></div>
+					<div >Размер: {{item.selectSize}}</div>    
+				</div> 
+			</div> 
+				
+				
+	 </div>  
+	 <div >Заказ на сумму: {{purchaseSumm}}</div>
+	 <div>Ваша скидка {{sail }} %</div>
+	 <div>Цена с учётом вашей скидки {{ purchaseSumm - (purchaseSumm/100)*sail }}</div>
+	 <div style="color:#bcc">Дата заказа {{order.date | date:'dd,mm,yyyy'}}</div> <br><br>
+</div>
+		  
+<div ng-show='userExist' ng-init="lim=3">
+	
+	<div ng-show="userExist&&userExist.purchase" class="row">
+		<div class="col-xs-12 savvaBtn showHistoryPurchase"  > История покупок </div>
+		<div class="col-xs-12 contHistory"   > 
+		 
+			<div class="col-xs-12"  ng-repeat="purchase in userExist.purchase | limitTo:lim  " > 
+				<div ng-hide="1" >{{ purchase.item  =  getItemById(purchase.idItem)  }}</div>  
+				
+				<div class="row">
+					<br><br>
+					<div class="col-xs-5" ng-if="purchase.item.imgs" >
+						<slick class="slider  " settings="slickConfigX" ng-if="slickConfigXLoaded" dots="true" >
+							<div ng-repeat="img in purchase.item.imgs ">
+								<img ng-src="{{'imgs/items/'+img.img}}" alt="{{img.alt}}"> 
+							</div>
+						</slick>
+					</div>
+					<div class="col-xs-7  " style="text-align:right;" >
+						<div ng-bind="purchase.item.name"></div>
+						<div >Размер: {{purchase.size}}</div>   
+						<br><br><br><br>
+						<div style="color:#bcc">{{purchase.date | date:'dd,mm,yyyy'}}</div> 
+					</div> 
+				</div> 
+			</div> 
+			
+			<button ng-show="userExist.purchase&&userExist.purchase.length > 3" class="savvaBtn" ng-show="lim==3" ng-click="lim=20" >Показать полый список</button> 
+		 
+		</div>
+		 
+	</div><br> 
+	
+		 
+		
+	<div class="row">
+		<div class="col-xs-12 savvaBtn showHistoryPurchase2"  > О бонусных баллах </div>
+		<div class="col-xs-12 contHistory"  style="text-align:center;" > 
+			Бонусы начисляются за каждую покупку в размере 2 балла. При накоплении 10 баллов Вы получаете скидку 10% на новую покупку. При дальнейшем накоплении баллов до 20 Вы получаете скидку 20% на новую покупку и становитесь обладателем постоянной персональной скидки 15%.<br>
+			Внимание: баллы не начисляются на покупки в разделе "скидки" и на покупки на скидочных акциях 
+			<br/><br/>
+			<div class="row" ng-repeat="purchase in userExist.purchase">
+				 <div class="col-xs-6 "  style="text-align:left;">  {{purchase.date | date:'dd,mm,yyyy'}} </div>
+				 <div class="col-xs-6 "  style="text-align:right;"  >  {{purchase.point}} балла </div>
+			</div>
+			<div class="row" ng-show="pointSumm">
+				 <div class="col-xs-6 " style="text-align:left;" > Итог </div>
+				 <div class="col-xs-6 "  style="text-align:right;" > {{pointSumm}} балла </div>
+			</div> 
+			<div class="col-xs-12 "  style="padding:20px;" >
+				Мы оставляем за собой право корректирования и внесения и внесения изменений в бонусную систему
+			</div>
+		
+		</div>
+		
+		 
+	</div><br> 
+	
+		 
+		
+	<div class="row">
+		<div class="col-xs-12 savvaBtn showHistoryPurchase"  > Персональные данные </div>
+		<div class="col-xs-12 contHistory"  >
+			Вы можете вносить изменения в персональные данные в случае смены номера телефона, адреса доставки, электронной почты и другие.<br/><br/>
+		<div class="col-xs-12 "  >
+		  <form name="registrationForm2" role="form"  > 
+			
+			 
+				<input class="form-control savvaInput" type="phone" placeholder="+37529 1234567" ng-model="userExist.numb" required>
+			 
+	 
+			<div class="savvaInput" ><input class=" " type="text" placeholder="Имя" ng-model="userExist.name" required></div>
+			<div class="form-group" ><input class="form-control" type="text" placeholder="Фамилия" ng-model="userExist.surname" required /></div>
+			<label for="">Персональная скидка в день рождения при налиии паспорта</label>
+			<div class="form-group" ><input class="form-control" type="date" ></div>
+			<div class="form-group" ><input class="form-control" type="email" placeholder="E-mail" ng-model="userExist.mail" required></div>
+			<div class="form-group" ><input class="form-control" type="text" placeholder="Страна" ng-model="userExist.address.country" required /></div>
+			<div class="form-group" ><input class="form-control" type="text" placeholder="Город" ng-model="userExist.address.city"required /></div>
+			<div class="form-group" ><input class="form-control" type="text" placeholder="Область" ng-model="userExist.address.region" required /></div>
+			<div class="form-group" ><input class="form-control" type="text" placeholder="Район" ng-model="userExist.address.area"required /></div>
+			<div class="form-group" ><input class="form-control" type="text" placeholder="Улица" ng-model="userExist.address.street"required /></div>
+			
+			<div class="form-group" ><input class="form-control" type="namber" placeholder="Номер дома" ng-model="userExist.address.house" required/></div>
+			<div class="form-group" ><input class="form-control" type="namber" placeholder="Квартира" ng-model="userExist.address.flat" required/></div>
+
+			 <button class="savvaBtn"  ng-hide="registrationForm2.$invalid"  ng-click="usersResource.update(userExist)" ng-disabled="registrationForm2.$invalid" >Сохранить изменения</button>  <br/><br/>
+			 <button class="savvaBtn"  ng-show="registrationForm2.$invalid" >Сохранить изменения</button>  <br/><br/>
+			 
+			 <a ng-href="#!/main"><button class="savvaBtn"  ng-click="exit()" >Выйти</button></a> <br/><br/>
+			  <a ng-href="#!/products"> <button class="savvaBtn"  >Вернуться к покупкам</button></a>
+		  </form>
+		</div>
+		<br>  
+		</div>
+	</div>
+	
+	
+ 
+	
+</div>
+ 
+
+</div>
+
+ 
+</div>
+
+

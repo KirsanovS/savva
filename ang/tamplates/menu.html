@@ -1,0 +1,42 @@
+ 
+<div id="menu" class="zzz" >
+ <div ng-repeat="menu in menuItems" class="menuItem"  check-load >
+	<a ng-href="{{menu.url }}" >
+	<div class="checkHover  " >
+		<img src="imgs/design/menu.png" class="hideMenuImg" ng-class="{showMenuImg:menu.flagShowImg}" alt="">
+		<div class="topsideMenu" ng-bind="menu.name"   ng-click=" changeSection(menu.flagSex,'',menu.flagNew, menu.flagDisc); showMenuImg(menu,menuItems)" ng-class="{'lastMenu':$last}"></div>
+	</div>	
+		<div class="inpsideMenu"  >
+			<div ng-repeat="inside in menu.inside"
+				 ng-click=" changeSection(menu.flagSex||inside.flagSex, inside.flagSection,'',menu.flagDisc); 
+				 showIsideMenuImg(inside, menuItems )" 
+				 class="inside" >
+				 <img src="imgs/design/menu.png" class="hideMenuImg" ng-class="{showMenuImg:inside.flagIsideShowImg}" alt="">
+						
+				 <div class="insideText"   >   &nbsp &nbsp {{inside.name}}  <span ng-show="debug">{{inside.flagSection}}</span>  </div>
+			</div>  
+		</div>
+		
+	</a> 
+ </div>
+</div>
+ 
+  
+<!--   <div id="menu">
+ <div ng-repeat="menu in menuItems" class="menuItem"  check-load >
+	<a ng-href="{{menu.url }}" >
+	<div class="checkHover">
+		<img src="imgs/design/menu.png" alt="">
+		<div class="topsideMenu" ng-bind="menu.name" ng-click=" changeSection(menu.flagSex,'',menu.flagNew, menu.flagDisc)" ng-class="{'lastMenu':$last}"></div>
+	</div>	
+		<div class="inpsideMenu"  >
+			<div ng-repeat="inside in menu.inside" class="inside" >
+				 <img src="imgs/design/menu.png" alt="">
+				 <div class="insideText" ng-click=" changeSection(menu.flagSex||inside.flagSex, inside.flagSection,'',menu.flagDisc)" > 
+				 &nbsp &nbsp {{inside.name}}  <span ng-show="debug">{{inside.flagSection}}</span>  </div>
+			</div>  
+		</div>
+		
+	</a> 
+ </div>
+</div> -->

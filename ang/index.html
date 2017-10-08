@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" ng-app="app" ng-controller="main" >
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title ng-bind="title" > </title>
+	<meta name="keywords" content="{{keywords}}" />
+	<meta name="description" content="{{description}}" />
+	<meta name="author" content="kirsanov" />
+	
+	<style> 	textarea.ta-bind {	width: 100%;} .container {text-align:auto; text-align: -webkit-auto; }	</style> 
+	<style> html, body{ height: 100%; } </style> 
+	<!-- build:css css/combined.css -->
+	<link rel="stylesheet" href="libs/bootstrap.min.css">
+	<link rel="stylesheet" href="style/styleMain.css">	
+	<link rel='stylesheet' href='libs/wysiwygeditor/font-awesome.css'>
+	<link rel="stylesheet" href="libs/wysiwygeditor/textAngular.css" type="text/css">
+ 
+  
+	<link rel="stylesheet" type="text/css" href="libs/carusel/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="libs/carusel/slick/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="libs/carusel/slick/options/options.css">
+	
+	<link rel="stylesheet" type="text/css" href="libs/scroll/jquery.mCustomScrollbar.css">
+	<!-- endbuild --> 
+ 
+</head>
+
+<body  ng-swipe-right="menuSwipe(1)"  ng-swipe-left="menuSwipe(0)" >
+<div id="headline" ></div>
+<div id="mainContainer"   class="container-fluid"  ng-init="debug=0"   > 
+	<a ng-href="#!/main"><span id="logoHead"><img src="imgs/design/header.png" alt=""></span></a>
+	<span id="PRandBasket" >
+		<a ng-href="#!/basket"   style="position:relative;" >
+			<img src="imgs/design/heder/bask.jpg" alt="">
+			<span id="quantityBask" ng-bind="basket.length" >  </span>
+		</a>
+		<a ng-href="#!/startPrivatRoom"><img src="imgs/design/heder/pr.jpg" alt=""></a>
+		<a class="visible-xs" ng-click="!flagCont?menuSwipe(1):menuSwipe(0)" ><img src="imgs/design/heder/phoneMenu.jpg" alt=""></a>
+	</span>   
+	<div class="row " > 
+		<a   ng-href="#!/news/{{share._id}}" ><div ng-bind="share.name" style="background:#03c2c3; color:#111; margin-top:-46px; text-align:center;"></div></a>
+	</div>
+	
+	<div class="row visible-xs phoneMenu" >
+		<div class=" col-xs-10 "  >
+			<div ng-include="'tamplates/phoneMenu.html'"> </div>
+		</div>
+	</div> 
+	 
+<!-- 	<span id="PRandBasket">
+		<img src="imgs/design/header.png" alt=""> 
+		<a ng-href="#!/startPrivatRoom" ><div id="PRenterBtn" > </div></a>
+		<a ng-href="#!/basket" ><div id="BasketEnterBtn">
+			<span id="basketWiteBlock"></span> 
+			<span id="quantityBask" ng-bind="basket.length"> </span>
+		</div></a>
+		 
+	</span>  
+	
+	<div class="visible-xs" id="showMenuPhone"  ng-click="phoneMenu? phoneMenu = 0: phoneMenu = 1" >Menu</div> 
+	<div class="row visible-xs phoneMenu" ng-show="phoneMenu">
+		<div class=" col-xs-8 "  ></div>
+		<div class=" col-xs-4 "  >
+			<div ng-include="'tamplates/menu.html'"> </div>
+		</div>
+	</div>  -->
+	 
+		<div ng-view class="view" ></div> 
+	 
+<!-- 	<div>тут должен располагаться статический футер	</div>   -->
+ 
+</div> 
+</body>
+	<!-- build:js scripts/combined.js -->		 
+	<script src="libs/jquery.js"></script> 
+	<script src="angular/angular.min.js"></script>
+	<script src="angular/angular-route.min.js"></script>
+	<script src="angular/angular-animate.min.js"></script> 
+	<script src="angular/angular-resource.min.js"></script> 
+	<script src="angular/angular-touch.min.js"></script> 
+	<script src="javaScript/main.js"></script>	
+	<script src="javaScript/admin.js"></script>	
+	<script src="javaScript/route.js"></script>
+	<script src="javaScript/resource.js"></script>
+	<script src="javaScript/motionJQ.js"></script>
+	<script src="javaScript/services/servicesItems.js"></script>
+	<script src="javaScript/services/servicesMenu.js"></script>
+	<script src="javaScript/services/servicesComments.js"></script>
+	<script src="javaScript/services/servicesUsers.js"></script>
+	<script src="javaScript/services/servicesOrders.js"></script>
+	<script src="libs/sendForm.js"></script> 
+	<script src="libs/angular-sessionstorage.js"></script>
+	
+	<script src='libs/wysiwygeditor/dist/textAngular-rangy.min.js'></script>  
+	<script src='libs/wysiwygeditor/dist/textAngular-sanitize.min.js'></script>   
+	<script src='libs/wysiwygeditor/dist/textAngular.min.js'></script>
+		
+	<script src="libs/carusel/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+	<script src="libs/carusel/slick/options/options.js" type="text/javascript" charset="utf-8"></script>
+	<script src="libs/carusel/slick/slick.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="libs/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="libs/carusel/slick/angular-slick.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="libs/scroll/jquery.mCustomScrollbar.concat.min.js" type="text/javascript" charset="utf-8"></script>	 
+	<!-- endbuild -->
+	
+ 
+	 
+</html>
+
+
+	
+	
+	 
+	 
+		
+		
+	
+	
+
+ 
+
+		
+	 
